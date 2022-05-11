@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/04 00:37:10 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/10 23:57:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # define BUFFER_SIZE
 #endif
 
-char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
 char	*ft_strchr(char *src, char c);
-char	*ft_strjoin(char *dest, char *src);
+char	*ft_strjoin(char const *dest, char const *src);
+char	*get_next_line(int fd);
 
 #endif
