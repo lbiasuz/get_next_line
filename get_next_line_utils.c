@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/04 21:17:56 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/11 23:35:10 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strchr(char *src, char c)
 		src++;
 	if (!(*src))
 		return (NULL);
-	return src;
+	return (src);
 }
 
 size_t	ft_strlen(const char *s)

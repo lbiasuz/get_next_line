@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/10 23:57:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/11 23:33:57 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE
+# endif
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(char *src, char c);

@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 20:44:19 by lbiasuz           #+#    #+#              #
-#    Updated: 2022/05/10 23:58:28 by lbiasuz          ###   ########.fr        #
+#    Updated: 2022/05/11 22:37:50 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,17 @@ OBJ		=	gnl.out
 BS		=	42
 
 gnl:
-	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BS) $(SRC) -o $(OBJ)
+	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BS) -c $(SRC) -o $(OBJ)
 
 clean:
-	rm -f main.c
+	rm -f gnl.out
 
 fclean: clean
-	rm -f gnl.out
+	rm -f main.c
 
 test:
 	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BS) $(SRC) main.c -o $(OBJ)
-	./$(OBJ)
 
-re: fclean gnl
+re: clean gnl
 
 .PHONY: gnl clean fclean re
