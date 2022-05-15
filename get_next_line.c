@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/13 00:36:54 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/14 21:48:22 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*gen_line(char **src)
 	char	*nlp;
 	char	*temp;
 	
-	nlp = ft_strchr(*src, '\n');
+	nlp = ft_strchr(src, '\n');
 	if (nlp)
 	{
 		temp = ft_substr(*src, 0, nlp - *src + 1);
@@ -40,6 +40,7 @@ char	*get_next_line(int fd)
 		read(fd, the_string, BUFFER_SIZE);
 		the_string[BUFFER_SIZE] = '\0';
 	}
+	// while (!ft_strchr())
 	line = gen_line(&the_string);
 	// ft_strlcpy(the_string, ft_strchr(the_string, '\n', )
 	return (line);

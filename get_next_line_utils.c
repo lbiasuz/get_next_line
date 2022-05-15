@@ -6,19 +6,19 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/13 00:10:05 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/14 20:26:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(char *src, char c)
+char	*ft_strchr(char **src, char c)
 {
-	while (*src && *src != c)
-		src++;
-	if (!(*src))
+	while (*(*src) && *(*src) != c)
+		(*src)++;
+	if (!(*(*src)))
 		return (NULL);
-	return (src);
+	return (*src);
 }
 
 size_t	ft_strlen(const char *s)
