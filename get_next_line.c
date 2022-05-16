@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/14 23:31:31 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/15 22:46:00 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	*read_file(int fd)
 
 	temp = malloc((sizeof(char) * BUFFER_SIZE) + 1);
 	n_read = read(fd, temp, BUFFER_SIZE);
-	if (n_read < 1)
-		return ("");
+	if (n_read < 1 || !temp)
+		return (NULL);
 	temp[n_read] = 0;
 	return (temp);
 }
@@ -52,8 +52,14 @@ char	*get_next_line(int fd)
 	while (!ft_strchr(&*the_string, '\n'))
 	{
 		temp = read_file(fd);
-		if (ft_strlen(temp) < BUFFER_SIZE)
-			return (the_string);
+		if (!temp && ft_strlen(&*the_string))
+		{
+			temp = the_string;
+			the_string += ft_strlen(temp);
+			return (ft_substr(temp, 0, ft_strlen(temp)));
+		}
+		else if (!temp)
+			return (NULL);
 		the_string = ft_strjoin(&*the_string, temp);
 	}
 	return (gen_line(&the_string));
