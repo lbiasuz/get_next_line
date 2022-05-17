@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/15 22:46:00 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/16 23:44:16 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ char	*get_next_line(int fd)
 		{
 			temp = the_string;
 			the_string += ft_strlen(temp);
-			return (ft_substr(temp, 0, ft_strlen(temp)));
+			return (temp);
 		}
 		else if (!temp)
 			return (NULL);
-		the_string = ft_strjoin(&*the_string, temp);
+		the_string = ft_strjoin(&the_string, &temp);
+		free(temp);
 	}
 	return (gen_line(&the_string));
 }

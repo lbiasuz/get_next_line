@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/14 22:20:29 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/16 23:47:12 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,20 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	return (src_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char **s1, char **s2)
 {
 	char			*join;
+	char			*past;
 	unsigned int	s1_len;
 	unsigned int	s2_len;
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	s1_len = ft_strlen(*s1);
+	s2_len = ft_strlen(*s2);
+	join = malloc(ft_strlen(*s1) + ft_strlen(*s2) + 1);
 	if (!join)
 		return (NULL);
-	ft_strlcpy(join, s1, s1_len + 1);
-	ft_strlcpy(join + s1_len, s2, s2_len + 1);
+	ft_strlcpy(join, *s1, s1_len + 1);
+	ft_strlcpy(join + s1_len, *s2, s2_len + 1);
 	return (join);
 }
 
