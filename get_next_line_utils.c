@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/16 23:47:12 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/16 23:48:38 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 char	*ft_strjoin(char **s1, char **s2)
 {
 	char			*join;
-	char			*past;
 	unsigned int	s1_len;
 	unsigned int	s2_len;
 

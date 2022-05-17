@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/16 23:44:16 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/17 00:02:15 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*read_file(int fd)
 
 	temp = malloc((sizeof(char) * BUFFER_SIZE) + 1);
 	n_read = read(fd, temp, BUFFER_SIZE);
-	if (n_read < 1 || !temp)
+	if (n_read < 1 || temp == NULL)
 		return (NULL);
 	temp[n_read] = 0;
 	return (temp);
