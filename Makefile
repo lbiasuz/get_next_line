@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 20:44:19 by lbiasuz           #+#    #+#              #
-#    Updated: 2022/05/16 22:36:14 by lbiasuz          ###   ########.fr        #
+#    Updated: 2022/05/17 23:20:22 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ CC		=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra -g3
 
-SRC		=	get_next_line_utils.c get_next_line.c
+SRC		=	get_next_line_utils.c new_get_next_line.c
 
 OBJ		=	gnl.out
 
-BS		=	42
+BS		=	10000
 
 gnl:
 	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BS) -c $(SRC) -o $(OBJ)
