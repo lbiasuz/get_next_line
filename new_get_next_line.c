@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/18 21:06:20 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/18 22:27:19 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,25 @@ int	read_file(int fd, char **str_hold)
 		free(to_read);
 		str_hold[0] = temp;
 	}
-	return (!ft_strchr(str_hold[0], '\n')
-		&& !(n_read < BUFFER_SIZE));
+	return (*ft_strchr(str_hold[0], '\n') == 0 && n_read == BUFFER_SIZE);
 }
 
-char	*gen_line(char **str_hold)
+char	*gen_line(char **s_src)
 {
-	return (*str_hold);
+	char	*nlp;
+	char	*temp;
+	char	*post;
+
+	nlp = ft_strchr(*s_src, '\n');
+	if (nlp)
+	{
+		post = ft_substr(s_src[0], nlp - s_src[0] + 1, ft_strchr(nlp, 0) - nlp);
+		temp = ft_substr(s_src[0], 0, nlp - s_src[0] + 1);
+		free_if_content(s_src);
+		s_src[0] = post;
+		return (temp);
+	}
+	return (*s_src);
 }
 
 char	*get_next_line(int fd)

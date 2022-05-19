@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/18 20:36:35 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/18 22:45:33 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strchr(char *src, char c)
 {
 	if (!src)
 		return (NULL);
-	else if (!src[0])
+	else if (!*src)
 		return (NULL);
 	while (*src && *src != c)
 		src++;
@@ -75,8 +75,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*sub;
 	unsigned int	start_len;
 
-	if (start < ft_strlen(s))
-		start_len = ft_strlen(s + start);
+	start_len = ft_strlen(s + start);
 	if (s + start > s + ft_strlen(s))
 	{
 		sub = malloc(1);
