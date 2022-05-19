@@ -6,7 +6,7 @@
 #    By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 20:44:19 by lbiasuz           #+#    #+#              #
-#    Updated: 2022/05/18 22:42:24 by lbiasuz          ###   ########.fr        #
+#    Updated: 2022/05/18 22:54:14 by lbiasuz          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC		=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra -g3
 
-SRC		=	get_next_line_utils.c new_get_next_line.c
+SRC		=	get_next_line_utils.c get_next_line.c
 
 OBJ		=	gnl.out
 

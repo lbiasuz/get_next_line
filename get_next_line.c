@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 20:44:05 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/17 22:51:36 by lbiasuz          ###   ########.fr       */
+/*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
+/*   Updated: 2022/05/18 23:44:49 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,29 @@ void	free_if_content(char **mall)
 		free(mall[0]);
 		mall[0] = NULL;
 	}
+}
+
+int	read_file(int fd, char **str_hold)
+{
+	char	*to_read;
+	int		n_read;
+	char	*temp;
+
+	to_read = malloc((sizeof(char) * BUFFER_SIZE + 1));
+	n_read = read(fd, to_read, BUFFER_SIZE);
+	if (n_read < 0)
+		return (n_read);
+	to_read[n_read] = 0;
+	if (!str_hold[0])
+		str_hold[0] = to_read;
+	else
+	{
+		temp = ft_strjoin(str_hold, &to_read);
+		free(str_hold[0]);
+		free(to_read);
+		str_hold[0] = temp;
+	}
+	return (*ft_strchr(str_hold[0], '\n') == 0 && n_read == BUFFER_SIZE);
 }
 
 char	*gen_line(char **s_src)
@@ -39,47 +62,21 @@ char	*gen_line(char **s_src)
 	return (*s_src);
 }
 
-char	*read_file(int fd)
-{
-	char	*temp;
-	int		n_read;
-
-	temp = malloc((sizeof(char) * BUFFER_SIZE + 1) );
-	n_read = read(fd, temp, BUFFER_SIZE);
-	if (n_read <= 0 || temp == NULL)
-		return (NULL);
-	temp[n_read] = 0;
-	return (temp);
-}
-
 char	*get_next_line(int fd)
 {
-	static char	*the_string;
-	char	*past;
-	char	*temp;
+	int			keep_reading;
+	static char	*str_hold;
+	char		*line;
 
-	if (!BUFFER_SIZE || fd < 0)
+	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, str_hold, 0) < 0)
 		return (NULL);
-	if (!the_string)
-		the_string = read_file(fd);
-	while (!ft_strchr(the_string, '\n'))
-	{
-		temp = read_file(fd);
-		if (!temp && the_string && ft_strlen(the_string))
-		{
-			temp = the_string;
-			the_string += ft_strlen(temp);
-			return (temp);
-		}
-		else if (!temp)
-		{
-			free_if_content(&the_string);
-			return (NULL);
-		}
-		past = ft_strjoin(&the_string, &temp);
-		free(the_string);
-		the_string = past;
-		free(temp);
-	}
-	return (gen_line(&the_string));
+	if (!str_hold)
+		str_hold = NULL;
+	keep_reading = 1;
+	while (keep_reading > 0)
+		keep_reading = read_file(fd, &str_hold);
+	line = gen_line(&str_hold);
+	// if (keep_reading == -1)
+	// 	free(str_hold);
+	return (line);
 }
