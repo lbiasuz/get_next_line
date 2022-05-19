@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/17 21:56:13 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/18 20:36:35 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ char	*ft_strchr(char *src, char c)
 {
 	if (!src)
 		return (NULL);
+	else if (!src[0])
+		return (NULL);
 	while (*src && *src != c)
 		src++;
-	if (!*src)
-		return (NULL);
 	return (src);
 }
 

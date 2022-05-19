@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:07 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/17 21:05:47 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/18 20:09:16 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	*ft_strchr(char *src, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char  **dest, char  **src);
 char	*get_next_line(int fd);
+int		read_file(int fd, char **str_hold);
 
 #endif
