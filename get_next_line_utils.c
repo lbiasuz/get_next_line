@@ -6,22 +6,35 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/18 23:33:05 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/19 21:53:31 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(char *src, char c)
+int	ft_strchr(char *src, char c)
 {
+	int	i;
+
+	i = 0;
 	if (!src)
-		return (NULL);
-	else if (!*src)
-		return (NULL);
-	while (*src && *src != c)
-		src++;
-	return (src);
+		return (-1);
+	while (src[i] && src[i] != c)
+		i++;
+	if (src[i] == c)
+		return (i);
+	return (-1);
 }
+// char	*ft_strchr(char *src, char c)
+// {
+// 	if (!src)
+// 		return ("");
+// 	else if (!*src)
+// 		return ("");
+// 	while (*src && *src != c)
+// 		src++;
+// 	return (src);
+// }
 
 size_t	ft_strlen(const char *s)
 {
@@ -75,7 +88,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*sub;
 	unsigned int	start_len;
 
-	start_len = ft_strlen(s + start);
+	if (start < ft_strlen(s))
+		start_len = ft_strlen(s + start);
+	else
+		start_len = len;
 	if (s + start > s + ft_strlen(s))
 	{
 		sub = malloc(1);

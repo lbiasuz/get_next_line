@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/18 23:44:49 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/19 22:11:49 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	read_file(int fd, char **str_hold)
 	if (n_read < 0)
 		return (n_read);
 	to_read[n_read] = 0;
-	if (!str_hold[0])
+	if (!str_hold || !str_hold[0])
 		str_hold[0] = to_read;
 	else
 	{
@@ -41,23 +41,25 @@ int	read_file(int fd, char **str_hold)
 		free(to_read);
 		str_hold[0] = temp;
 	}
-	return (*ft_strchr(str_hold[0], '\n') == 0 && n_read == BUFFER_SIZE);
+	return (ft_strchr(str_hold[0], '\n') == -1 && n_read == BUFFER_SIZE);
 }
 
 char	*gen_line(char **s_src)
 {
-	char	*nlp;
-	char	*temp;
-	char	*post;
+	int		nlp;
+	char	*line;
+	char	*post_new_line;
 
 	nlp = ft_strchr(*s_src, '\n');
-	if (nlp)
+	if (nlp >= 0)
 	{
-		post = ft_substr(s_src[0], nlp - s_src[0] + 1, ft_strchr(nlp, 0) - nlp);
-		temp = ft_substr(s_src[0], 0, nlp - s_src[0] + 1);
-		free_if_content(s_src);
-		s_src[0] = post;
-		return (temp);
+		post_new_line = ft_substr(
+			s_src[0], nlp + 1, ft_strlen(s_src[0] + nlp + 1)
+		);
+		line = ft_substr(s_src[0], 0, nlp + 1);
+		free(*s_src);
+		s_src[0] = post_new_line;
+		return (line);
 	}
 	return (*s_src);
 }
@@ -70,13 +72,9 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, str_hold, 0) < 0)
 		return (NULL);
-	if (!str_hold)
-		str_hold = NULL;
 	keep_reading = 1;
 	while (keep_reading > 0)
 		keep_reading = read_file(fd, &str_hold);
 	line = gen_line(&str_hold);
-	// if (keep_reading == -1)
-	// 	free(str_hold);
 	return (line);
 }
