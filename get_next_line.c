@@ -6,22 +6,13 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/19 22:11:49 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/19 23:56:49 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	free_if_content(char **mall)
-{
-	if (mall && mall[0])
-	{
-		free(mall[0]);
-		mall[0] = NULL;
-	}
-}
-
-int	read_file(int fd, char **str_hold)
+int		read_file(int fd, char **str_hold)
 {
 	char	*to_read;
 	int		n_read;
@@ -41,7 +32,7 @@ int	read_file(int fd, char **str_hold)
 		free(to_read);
 		str_hold[0] = temp;
 	}
-	return (ft_strchr(str_hold[0], '\n') == -1 && n_read == BUFFER_SIZE);
+	return (n_read);
 }
 
 char	*gen_line(char **s_src)
@@ -54,8 +45,8 @@ char	*gen_line(char **s_src)
 	if (nlp >= 0)
 	{
 		post_new_line = ft_substr(
-			s_src[0], nlp + 1, ft_strlen(s_src[0] + nlp + 1)
-		);
+				s_src[0], nlp + 1, ft_strlen(s_src[0] + nlp + 1)
+				);
 		line = ft_substr(s_src[0], 0, nlp + 1);
 		free(*s_src);
 		s_src[0] = post_new_line;
@@ -68,13 +59,16 @@ char	*get_next_line(int fd)
 {
 	int			keep_reading;
 	static char	*str_hold;
-	char		*line;
 
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, str_hold, 0) < 0)
 		return (NULL);
-	keep_reading = 1;
-	while (keep_reading > 0)
+	while (ft_strchr(str_hold, '\n') == -1)
+	{
 		keep_reading = read_file(fd, &str_hold);
-	line = gen_line(&str_hold);
-	return (line);
+		if (keep_reading < BUFFER_SIZE && str_hold != NULL)
+			break;
+		else if (keep_reading < 1)
+			return (NULL);
+	}
+	return (gen_line(&str_hold));
 }
