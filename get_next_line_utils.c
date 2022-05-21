@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:44:02 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/19 21:53:31 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/20 08:00:25 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ int	ft_strchr(char *src, char c)
 		return (i);
 	return (-1);
 }
-// char	*ft_strchr(char *src, char c)
-// {
-// 	if (!src)
-// 		return ("");
-// 	else if (!*src)
-// 		return ("");
-// 	while (*src && *src != c)
-// 		src++;
-// 	return (src);
-// }
 
 size_t	ft_strlen(const char *s)
 {
