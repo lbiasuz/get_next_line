@@ -6,7 +6,7 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/20 08:49:22 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/21 19:42:10 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,30 @@ char	*gen_line(char **s_src)
 		s_src[0] = post_new_line;
 		return (line);
 	}
-	return (ft_substr(s_src[0], 0, ft_strlen(s_src[0])));
+	if (s_src[0][0])
+		line = ft_substr(s_src[0], 0, ft_strlen(s_src[0]));
+	else
+		line = NULL;
+	free(s_src[0]);
+	s_src[0] = NULL;
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
 	int			keep_reading;
 	static char	*str_hold;
-	char		*line;
 
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, str_hold, 0) < 0)
 		return (NULL);
-	while (ft_strchr(str_hold, '\n') == -1)
+	keep_reading = 1;
+	while (keep_reading)
 	{
 		keep_reading = read_file(fd, &str_hold);
-		if (keep_reading < 1)
-			return (NULL);
-		else if (keep_reading < BUFFER_SIZE)
-		{
-			line = gen_line(&str_hold);
-			free(str_hold);
-			return (line);
-		}
+		if (keep_reading < BUFFER_SIZE || 
+			ft_strchr(str_hold, '\n') >= 0 
+			)
+			keep_reading = 0;
 	}
 	return (gen_line(&str_hold));
 }
