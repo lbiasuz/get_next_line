@@ -6,76 +6,74 @@
 /*   By: lbiasuz <lbiasuz@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 22:42:59 by lbiasuz           #+#    #+#             */
-/*   Updated: 2022/05/21 19:42:10 by lbiasuz          ###   ########.fr       */
+/*   Updated: 2022/05/22 00:19:58 by lbiasuz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		read_file(int fd, char **str_hold)
+int	read_file(int fd, char **str_hold)
 {
-	char	*to_read;
-	int		n_read;
+	char	*read_str;
+	int		read_len;
 	char	*temp;
 
-	to_read = malloc((sizeof(char) * BUFFER_SIZE + 1));
-	n_read = read(fd, to_read, BUFFER_SIZE);
-	if (n_read < 0)
-		return (n_read);
-	to_read[n_read] = 0;
+	read_str = malloc((sizeof(char) * BUFFER_SIZE + 1));
+	read_len = read(fd, read_str, BUFFER_SIZE);
+	if (read_len < 0)
+		return (read_len);
+	read_str[read_len] = 0;
 	if (!str_hold || !str_hold[0])
-		str_hold[0] = to_read;
+		str_hold[0] = read_str;
 	else
 	{
-		temp = ft_strjoin(str_hold, &to_read);
+		temp = ft_strjoin(str_hold, &read_str);
 		free(str_hold[0]);
-		free(to_read);
+		free(read_str);
 		str_hold[0] = temp;
 	}
-	return (n_read);
+	return (read_len);
 }
 
-char	*gen_line(char **s_src)
+char	*gen_line(char **str_hold)
 {
-	int		nlp;
-	char	*line;
-	char	*post_new_line;
+	int		pos_nl;
+	char	*output;
+	char	*after_nl;
 
-	nlp = ft_strchr(*s_src, '\n');
-	if (nlp >= 0)
+	pos_nl = ft_strchr(*str_hold, '\n');
+	if (pos_nl >= 0)
 	{
-		post_new_line = ft_substr(
-				s_src[0], nlp + 1, ft_strlen(s_src[0] + nlp + 1)
+		after_nl = ft_substr(
+				str_hold[0], pos_nl + 1, ft_strlen(str_hold[0] + pos_nl + 1)
 				);
-		line = ft_substr(s_src[0], 0, nlp + 1);
-		free(*s_src);
-		s_src[0] = post_new_line;
-		return (line);
+		output = ft_substr(str_hold[0], 0, pos_nl + 1);
+		free(*str_hold);
+		str_hold[0] = after_nl;
+		return (output);
 	}
-	if (s_src[0][0])
-		line = ft_substr(s_src[0], 0, ft_strlen(s_src[0]));
+	if (str_hold[0][0])
+		output = ft_substr(str_hold[0], 0, ft_strlen(str_hold[0]));
 	else
-		line = NULL;
-	free(s_src[0]);
-	s_src[0] = NULL;
-	return (line);
+		output = NULL;
+	free(str_hold[0]);
+	str_hold[0] = NULL;
+	return (output);
 }
 
 char	*get_next_line(int fd)
 {
-	int			keep_reading;
+	int			read_len;
 	static char	*str_hold;
 
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, str_hold, 0) < 0)
 		return (NULL);
-	keep_reading = 1;
-	while (keep_reading)
+	read_len = 1;
+	while (read_len)
 	{
-		keep_reading = read_file(fd, &str_hold);
-		if (keep_reading < BUFFER_SIZE || 
-			ft_strchr(str_hold, '\n') >= 0 
-			)
-			keep_reading = 0;
+		read_len = read_file(fd, &str_hold);
+		if (read_len < BUFFER_SIZE || ft_strchr(str_hold, '\n') >= 0)
+			read_len = 0;
 	}
 	return (gen_line(&str_hold));
 }
